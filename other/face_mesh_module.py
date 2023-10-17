@@ -36,7 +36,7 @@ class FaceMeshDetector:
                 ih, iw, ic = img.shape  # Height, Width, Depth
                 x, y = int(lm.x * iw), int(lm.y * ih)
                 face_pixels.append([x, y])
-                face_coords.append([lm.x, lm.y, lm.z])
+                face_coords.append([lm.x, lm.z, -lm.y])
 
 
             if draw:

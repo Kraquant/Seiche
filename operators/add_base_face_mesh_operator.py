@@ -1,7 +1,8 @@
 import bpy
 import bmesh
+from math import radians
 from bpy_extras.object_utils import AddObjectHelper
-from ..other.faceMesh import add_face
+from ..other.face_mesh_data import get_face_mesh
 
 from bpy.props import (
     FloatProperty,
@@ -33,9 +34,15 @@ class SEICHE_OT_add_base_face_mesh(bpy.types.Operator, AddObjectHelper):
         default=1.0,
     )
 
+    save_to_pointer: bpy.props.BoolProperty(
+        name="Save to the pointer",
+        description="Save to the addon mesh pointer",
+        default=False
+    )
+
     def execute(self, context):
 
-        verts_loc, faces = add_face(
+        verts_loc, faces = get_face_mesh(
             self.width,
             self.height,
             self.depth,
@@ -57,25 +64,22 @@ class SEICHE_OT_add_base_face_mesh(bpy.types.Operator, AddObjectHelper):
 
         # add the mesh as an object into the scene with this utility module
         from bpy_extras import object_utils
-        object_utils.object_data_add(context, mesh, operator=self)
+        face_obj =  object_utils.object_data_add(context, mesh, operator=self)
+
+        
+        # Rotate the face by 90 degrees
+        # face_obj.rotation_euler = (radians(90), 0, 0)
+        #bpy.ops.object.transform_apply(location=False, rotation=True, scale=False)
+        
+        if self.save_to_pointer:
+            context.scene.seiche_settings.target_mesh = face_obj
 
         return {'FINISHED'}
 
 
-def menu_func(self, context):
-    self.layout.operator(SEICHE_OT_add_base_face_mesh.bl_idname, icon='MESH_MONKEY')
-
-
-# Register and add to the "add mesh" menu (required to use F3 search "Add Box" for quick access).
 def register():
     bpy.utils.register_class(SEICHE_OT_add_base_face_mesh)
-    bpy.types.VIEW3D_MT_mesh_add.append(menu_func)
 
 
 def unregister():
     bpy.utils.unregister_class(SEICHE_OT_add_base_face_mesh)
-    bpy.types.VIEW3D_MT_mesh_add.remove(menu_func)
-
-
-if __name__ == "__main__":
-    register()
