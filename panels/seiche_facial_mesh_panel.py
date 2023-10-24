@@ -31,7 +31,8 @@ class SEICHE_PT_facial_mesh(bpy.types.Panel):
         ope.save_to_pointer=True
 
         row = layout.row()
-        row = row.operator("wm.face_mesh_deform", text="Start realtime mesh deformation", icon="MESH_GRID")
+        row.operator("wm.face_mesh_deform", text="Start realtime mesh deformation", icon="MESH_GRID")
+        row.operator("wm.face_armature_deform", text="Start realtime armature deformation", icon="OUTLINER_OB_ARMATURE")
         
 
 def register():

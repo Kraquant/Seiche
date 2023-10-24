@@ -9,6 +9,7 @@ def get_face_mesh(width, height, depth):
 
     # apply size
     for i, v in enumerate(vertices):
-        vertices[i] = v[0] * width, v[1] * depth, v[2] * height
-
+        vertices[i] = v[0] * width,  - v[2] * height, v[1] * depth # 90 degrees X rotation
+        
+       
     return vertices, faces

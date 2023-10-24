@@ -21,8 +21,10 @@ from .operators import add_base_face_armature_operator
 from .operators import add_base_face_empties_operator
 from .operators import add_base_face_mesh_operator
 from .operators import add_face_keyframes_operator
+from .operators import deform_face_armature_operator
 from .operators import deform_face_mesh_operator
 from .operators import face_analysis_operator
+from .operators import setup_capture_operator
 
 # Menu
 from .menus import add_seiche_object_menu
@@ -46,8 +48,11 @@ def register():
     add_base_face_empties_operator.register()
     add_base_face_mesh_operator.register()
     add_face_keyframes_operator.register()
+    deform_face_armature_operator.register()
     deform_face_mesh_operator.register()
     face_analysis_operator.register()
+    setup_capture_operator.register()
+
 
     # Menu
     add_seiche_object_menu.register()
@@ -69,8 +74,10 @@ def unregister():
     add_base_face_empties_operator.unregister()
     add_base_face_mesh_operator.unregister()
     add_face_keyframes_operator.unregister()
+    deform_face_armature_operator.unregister()
     deform_face_mesh_operator.unregister()
     face_analysis_operator.unregister()
+    setup_capture_operator.unregister()
 
     # Menu
     add_seiche_object_menu.unregister()

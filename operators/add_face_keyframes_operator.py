@@ -1,8 +1,7 @@
 import bpy
 import bmesh
 from ..other import face_mesh_data
-
-
+from ..other.utils import get_armature_pose_bones
 
 class SEICHE_OT_add_face_keyframes(bpy.types.Operator):
     bl_label = "Add face keyframes"
@@ -36,24 +35,6 @@ class SEICHE_OT_add_face_keyframes(bpy.types.Operator):
                 if vert_pos[2] > values [5]: values[5] = vert_pos[2]
         return values
 
-    def get_armature_pose_bones(self, context):
-        settings = context.scene.seiche_settings
-        armature_data = settings.target_armature
-        if armature_data:
-        # Iterate through users to find the associated object
-            associated_object = None
-            for obj in bpy.data.objects:
-                if obj.data == armature_data:
-                    associated_object = obj
-
-            if associated_object:
-                return associated_object.pose.bones
-            else:
-                return None
-        else:
-            print(f"Face armature not found in Blender data")
-        return None
-
     def execute(self, context):
         settings = context.scene.seiche_settings
         record = settings.detection_settings.face_data
@@ -64,7 +45,7 @@ class SEICHE_OT_add_face_keyframes(bpy.types.Operator):
         step = 0
     
         # Animating the armature
-        pose_bones = self.get_armature_pose_bones(context)
+        pose_bones = get_armature_pose_bones(context)
         bpy.ops.object.mode_set(mode='POSE')
         for data in record:
             step += 1

@@ -11,6 +11,8 @@ class SEICHE_PT_main_panel(bpy.types.Panel):
         layout = self.layout
         row = layout.row()
 
+        row.operator("wm.setup_capture", text="Setup Everything")
+
 def register():
     bpy.utils.register_class(SEICHE_PT_main_panel)
 

@@ -4,7 +4,7 @@ import time
 
 class FaceMeshDetector:
 
-    def __init__(self, static_mode=False, max_faces=2, min_detection_con=0.5, min_track_con=0.5):
+    def __init__(self, static_mode=False, max_faces=1, min_detection_con=0.5, min_track_con=0.5):
         self.staticMode = static_mode
         self.maxFaces = max_faces
         self.minDetectionCon = min_detection_con
